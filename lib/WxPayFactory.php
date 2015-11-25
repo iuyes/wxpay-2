@@ -6,33 +6,30 @@ class WxPayFactory
     /**
      * @var WxPayConfig
      */
-    static $config;
+    private static $config;
 
-    public static function setDefaultConfig(WxPayConfig $wxPayConfig)
+    /**
+     * @param WxPayConfig $wxPayConfig
+     */
+    public static function setConfig(WxPayConfig $wxPayConfig)
     {
         self::$config = $wxPayConfig;
     }
 
-    public static function getDefaultConfig()
+    /**
+     * @return WxPayConfig
+     */
+    public static function getConfig()
     {
         return self::$config;
     }
 
     /**
-     *
+     * @return WxPayApi
      */
-    public static function api()
+    public static function WxPayApi()
     {
         return new WxPayApi(self::$config);
     }
 
-    public static function WxPayResults()
-    {
-        return new WxPayResults(self::$config);
-    }
-
-    public static function WxPayReport()
-    {
-        return new WxPayReport(self::$config);
-    }
 }

@@ -46,15 +46,13 @@ class WxPayJsApiPayTool
 
     /**
      * JsApiPay constructor.
-     * @param WxPayConfig $wxPayConfig
-     * @param WxPayApi $wxPayApi
      * @param int $curl_timeout
      */
-	public function __construct(WxPayConfig $wxPayConfig, WxPayApi $wxPayApi, $curl_timeout = 2)
+	public function __construct($curl_timeout = 2)
 	{
 		$this->curl_timeout = $curl_timeout;
-		$this->config       = $wxPayConfig;
-        $this->wxPayApi = $wxPayApi;
+		$this->config       = WxPayFactory::getConfig();
+        $this->wxPayApi     = WxPayFactory::WxPayApi();
     }
 
 	/**

@@ -16,11 +16,10 @@ class WxPayApi
 
     /**
      * WxPayApi constructor.
-     * @param WxPayConfig $wxPayConfig
      */
-    public function __construct(WxPayConfig $wxPayConfig)
+    public function __construct()
     {
-        $this->config = $wxPayConfig;
+        $this->config = WxPayFactory::getConfig();
     }
 
     /**
@@ -497,7 +496,7 @@ class WxPayApi
 
         //上报逻辑
         $endTimeStamp = $this->getMillisecond();
-        $objInput     = WxPayFactory::WxPayReport();
+        $objInput     = new WxPayReport();
         $objInput->SetInterface_url($url);
         $objInput->SetExecute_time_($endTimeStamp - $startTimeStamp);
         //返回状态码

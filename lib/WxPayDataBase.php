@@ -18,12 +18,10 @@ class WxPayDataBase
 
     /**
      * WxPayDataBase constructor.
-     * @param WxPayConfig $wxPayConfig
-     * @internal param array $values
      */
-    public function __construct(WxPayConfig $wxPayConfig)
+    public function __construct()
     {
-        $this->config = $wxPayConfig;
+        $this->config = WxPayFactory::getConfig();
     }
 
     /**
