@@ -1,0 +1,15 @@
+{
+  "name": "phpres/wxpay",
+  "authors": [
+    {
+      "name": "Leo Yang",
+      "email": "leo@phpres.cn"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "classmap": [
+      "lib"
+    ]
+  }
+}
