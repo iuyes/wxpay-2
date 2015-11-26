@@ -8,19 +8,32 @@ abstract class WxPayNotifyAbstract extends WxPayNotifyReply
 {
 
     /**
+     * @var WxPayApi
+     */
+    private $wxPayApi;
+
+    /**
+     * WxPayNotifyAbstract constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->wxPayApi = WxPayFactory::WxPayApi();
+    }
+
+    /**
      * 回调入口
      * @param bool $needSign 是否需要签名输出
-     * @param WxPayApi $wxPayApi
      */
-    final public function Handle($needSign = true, WxPayApi $wxPayApi)
+    final public function Handle($needSign = true)
     {
         $msg = "OK";
         //当返回false的时候，表示notify中调用NotifyCallBack回调失败获取签名校验失败，此时直接回复失败
-        $result = $wxPayApi->notify(array($this, 'NotifyCallBack'), $msg);
+        $result = $this->wxPayApi->notify(array($this, 'NotifyCallBack'), $msg);
         if ($result == false) {
             $this->SetReturn_code("FAIL");
             $this->SetReturn_msg($msg);
-            $this->ReplyNotify(false, $wxPayApi);
+            $this->ReplyNotify(false);
 
             return;
         } else {
@@ -28,7 +41,7 @@ abstract class WxPayNotifyAbstract extends WxPayNotifyReply
             $this->SetReturn_code("SUCCESS");
             $this->SetReturn_msg("OK");
         }
-        $this->ReplyNotify($needSign, $wxPayApi);
+        $this->ReplyNotify($needSign);
     }
 
     /**
@@ -69,10 +82,9 @@ abstract class WxPayNotifyAbstract extends WxPayNotifyReply
      *
      * 回复通知
      * @param bool $needSign 是否需要签名输出
-     * @param WxPayApi $wxPayApi
      * @throws WxPayException
      */
-    final private function ReplyNotify($needSign = true,WxPayApi $wxPayApi)
+    final private function ReplyNotify($needSign = true)
     {
         //如果需要签名
         if ($needSign == true &&
@@ -80,6 +92,6 @@ abstract class WxPayNotifyAbstract extends WxPayNotifyReply
         ) {
             $this->SetSign();
         }
-        $wxPayApi->replyNotify($this->ToXml());
+        $this->wxPayApi->replyNotify($this->ToXml());
     }
 }
