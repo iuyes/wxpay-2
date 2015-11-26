@@ -10,7 +10,7 @@ abstract class WxPayNotifyAbstract extends WxPayNotifyReply
     /**
      * @var WxPayApi
      */
-    private $wxPayApi;
+    protected $wxPayApi;
 
     /**
      * WxPayNotifyAbstract constructor.
